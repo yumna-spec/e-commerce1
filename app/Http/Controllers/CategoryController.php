@@ -49,8 +49,7 @@ $validatedData = $request->validate([
       //$category=Category::find($id)->id;
     // dd($category);
         
-      $categoryid= $request->input('category_id');
-      $product = Product::create([
+ Product::create([
         'name'=> $validatedData['name'],
         'price'=> $validatedData['price'],
        'description'=>$validatedData['description'],

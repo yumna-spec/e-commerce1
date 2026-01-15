@@ -124,6 +124,30 @@ return view('admin.sellingProducts', compact('orderItems'));
 
 
 
+ public function filterbypriceandsearch(){
+    $search=request('search', null);
+    $maxprice=request('price', 100);
+    if($search){
+    $products=Product::where('name','like','%'.$search.'%')->where('price', '<=', $maxprice)->get();
+
+    }
+    else {
+        $products=Product::where('price', '<=', $maxprice)->get();
+    }
+
+
+    return view('product.BurgerList', compact('products','maxprice'));
+
+
+
+
+
+ }
+
+
+
+
+
 
 
 

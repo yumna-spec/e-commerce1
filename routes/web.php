@@ -125,3 +125,4 @@ Route::post('/productbysubcategory/add/{id}', [CategoryController::class, 'store
 
 
 
+Route::get('/filter', [ProductController::class, 'filterbypriceandsearch'])->name('filterprice');

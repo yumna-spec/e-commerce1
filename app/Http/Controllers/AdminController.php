@@ -154,8 +154,9 @@ public function showallOrder()
 
     public function showallOrderitems($id)
     {
-// 
-        $order = Order::with('orderItemsProduct')->find($id);
+       // $order = Order::with('orderItemsProduct')->where( 'id',$id )->first();
+
+        $order = Order::with('orderItemsProduct')->find( $id );
        // dd($order->relationsToArray());
         // Access the order items as a collection
         // $orderItems = $order->orderItemsProduct; 
