@@ -12,7 +12,7 @@ use App\Mail\ResetPass;
 use App\Models\Admin;
 use App\Models\Order;
 use App\Models\Product;
-
+use Illuminate\Support\Facades\Storage;
 use App\Models\Category;
 
 
@@ -82,12 +82,15 @@ return view('admin.adminproducttable',compact('products','categories'));
 
 
 
-public function deleteproduct(Product $id ){
+public function deleteproduct( $id ){
 
-
+$product = Product::find($id);
+if($product->image){
+   Storage::disk('public')->delete($product->image);
+}
   //  Product::find($request->product_id)->delete();
 
-$id->delete();
+$product->delete();
 
  return redirect()->back()->with('success', 'Product deleted successfully!');
 
