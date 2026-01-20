@@ -15,9 +15,11 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link id="pagestyle" href="{{ asset('assets/css/material-dashboard.css?v=3.2.0') }}" rel="stylesheet" />
+
+  <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
 </head>
 
-<body class="g-sidenav-show bg-gray-100">
+<body class="color-primary">
   
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2 bg-white my-2" id="sidenav-main">
     <div class="sidenav-header">
@@ -53,7 +55,8 @@
             <li class="nav-item d-flex align-items-center">
                 <form action="{{ route('logout') }}" method="POST" class="m-0">
                     @csrf
-                    <button type="submit" class="btn btn-link nav-link text-body font-weight-bold px-0 mb-0">
+                    
+                    <button type="submit" class="text-primary ">
                         <i class="fa fa-user me-sm-1"></i> <span class="d-sm-inline d-none">Logout</span>
                     </button>
                 </form>

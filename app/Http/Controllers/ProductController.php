@@ -128,8 +128,12 @@ return view('admin.sellingProducts', compact('orderItems'));
     $search=request('search', null);
     $maxprice=request('price', 100);
     if($search){
-    $products=Product::where('name','like','%'.$search.'%')->where('price', '<=', $maxprice)->get();
+            // $products=Product::query()->when($search, function ($query, $search) {
+            //             return $query->where('name', 'like', '%' . $search . '%');
+            //         })->where('price', '<=', $maxprice)->get();
+        $products=Product::where('name','like','%'.$search.'%')->where('price', '<=', $maxprice)->get();
 
+    //$products=Product::query()->where('name','like','%'.$search.'%')->where('price', '<=', $maxprice)->get();
     }
     else {
         $products=Product::where('price', '<=', $maxprice)->get();
@@ -146,7 +150,30 @@ return view('admin.sellingProducts', compact('orderItems'));
 
 
 
+ public function trash() 
+ {
+ $products = Product::onlyTrashed()->get();
+ $categories=Category::wherenotNull('parent_id')->get();
+   return view ('admin.trashproduct', compact('products','categories'));
+ }
 
+
+
+
+
+ public function restore($id)
+ {
+    Product::withTrashed()->where('id', $id)->restore();
+
+    
+ return redirect()->back();
+
+    
+ }
+
+ public function delete($id){
+    Product::withTrashed()->where('id', $id)->forceDelete();
+ }
 
 
 

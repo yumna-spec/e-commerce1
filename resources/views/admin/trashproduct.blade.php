@@ -55,7 +55,7 @@
 
 
 <li class="nav-item">
-          <a class="nav-link active bg-gradient-dark text-white" href="{{ route('admin.product') }}">
+          <a class="nav-link text-dark" href="{{ route('admin.product') }}">
             <i class="material-symbols-rounded opacity-5"></i>
             <span class="nav-link-text ms-1">Products</span>
           </a>
@@ -70,7 +70,14 @@
     </a>
   </li>
 
-
+<li class="nav-item">
+    <a class="nav-link active bg-gradient-dark text-white" href="{{ route('admin.trashproduct') }}">
+      <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+        <i class="material-icons opacity-10"></i>
+      </div>
+      <span class="nav-link-text ms-1">trash</span>
+    </a>
+  </li>
 
 </ul>
     </div>
@@ -268,20 +275,23 @@
                       
                       <td class="align-middle text-center">
                         
-                        <a href="{{ route('product.edit', $product->id) }}" class="btn btn-link text-dark px-2 mb-0" data-bs-toggle="tooltip" title="Edit">
-                          <i class="material-symbols-rounded text-sm me-1">edit</i> Edit
-                        </a>
+                    
 
-                        <form method="POST" action="{{ route('admin.product.delete', $product->id) }}" class="d-inline-block">
+                        <form method="POST" action="{{ route('admin.product.restore', $product) }}" class="d-inline-block">
                             @csrf
-                            @method('DELETE')
                             
-                            <button type="submit" class="btn btn-link text-danger text-gradient px-2 mb-0" onclick="return confirm('Are you sure you want to delete this product?')">
-                                <i class="material-symbols-rounded text-sm me-1">delete</i> Delete
+                            <button type="submit" class="btn btn-link text-danger text-gradient px-2 mb-0" onclick="return confirm('Are you sure you want to restore this product?')">
+                              restore
                             </button>
                         </form>
 
-                        
+                        <form method="POST" action="{{ route('admin.force.delete', $product) }}" class="d-inline-block">
+                            @csrf
+                            
+                            <button type="submit" class="btn btn-link text-danger text-gradient px-2 mb-0" onclick="return confirm('Are you sure you want to restore this product?')">
+                              delete
+                            </button>
+                        </form>
 
                       </td>
                     </tr>
@@ -291,10 +301,6 @@
                     
 
                   </tbody>
-
-                  <div class="paginationdiv">
-                    {{$products->links('pagination::bootstrap-5')}}
-                  </div>
                 </table>
               </div>
             </div>

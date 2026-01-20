@@ -71,8 +71,8 @@ return redirect()->back()->withErrors([
 
 public function adminproduct(){
 
-$products = Product::all();
-$categories=Category::whereNull('parent_id')->get();
+$products = Product::paginate(2); 
+$categories=Category::father()->get();
 return view('admin.adminproducttable',compact('products','categories'));
 
 
@@ -101,7 +101,9 @@ $id->delete();
 
  public function addproduct(Request $request){
 
- 
+ $imagepath=null;
+ if($request->hasfile('image')){
+    $imagepath=$request->file('image')->store('photos','public');}
 
     $request->validate([
         'name'=>'required|string',
@@ -109,13 +111,15 @@ $id->delete();
          'description'=>'string',
          'Is_trend'=>'boolean',
          'category_name'=>'exists:categories,name',
+         'image'=>'nullable|image|mimes:jpg,png,gif|'
   ]);
      $product = Product::create([
         'name'=> $request->name,
         'price'=> $request->price,
        'description'=>$request->description,
        'Is_trend'=>$request->Is_trend,
-       'category_name'=>$request->category_name, 
+       'category_name'=>$request->category_name,
+       'image'=>$imagepath,
 
 
      ]);

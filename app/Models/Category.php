@@ -19,5 +19,9 @@ class Category extends Model
     {
         return $this->belongsTo(Category::class, 'parent_id');
     }
+
+    public function scopeFather($query){
+        return $query->wherenotnull('parent_id');
+    }
     //
 }

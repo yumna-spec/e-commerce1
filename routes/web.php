@@ -126,3 +126,10 @@ Route::post('/productbysubcategory/add/{id}', [CategoryController::class, 'store
 
 
 Route::get('/filter', [ProductController::class, 'filterbypriceandsearch'])->name('filterprice');
+
+
+Route::get('/trash',[ProductController::class,'trash'])->name('admin.trashproduct')->middleware('auth:admin');
+
+Route::post('/restore/{product}', [ProductController::class,'restore'])->name('admin.product.restore')->middleware('auth:admin');
+
+Route::post('/delete/{product}', [ProductController::class,'delete'])->name('admin.force.delete')->middleware('auth:admin');    

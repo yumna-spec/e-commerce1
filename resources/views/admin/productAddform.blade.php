@@ -83,7 +83,7 @@
       <div class="row">
         <div class="col-12">
           
-          <form method="POST" action="{{ route('admin.product.add.submit') }}">
+          <form method="POST" action="{{ route('admin.product.add.submit') }}" enctype="multipart/form-data">
             @csrf
 
 
@@ -101,14 +101,14 @@
                     <div class="col-md-6">
                         <div class="input-group input-group-outline my-3">
                             <label class="form-label">Product Name</label>
-                            <input type="text" name="name" class="form-control" required>
+                            <input type="text" name="name"  class="form-control"  value="{{old('description')}}" required  >
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="input-group input-group-outline my-3">
                             <label class="form-label">Price</label>
-<input type="number" name="price" class="form-control" step="0.01" required>                        </div>
+<input type="number" name="price" class="form-control" step="0.01" value= "{{  old  ('price') }}" required >                        </div>
                     </div>
                     Is_trend:
                     <div class="col-md-3">
@@ -131,10 +131,21 @@
                         </div>
                     </div>
 
-                    <div class="col-6">
+
+<div class="col-md-3">
+                        <div class="input-group input-group-outline my-3">
+                            <label class="">photo</label>
+                        <input type='file' name='image' id='image' accept="image/"  >
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-3">
                         <div class="input-group input-group-outline my-3">
                             <label class="form-label">Description</label>
-                            <textarea name="description" class="form-control" rows="4"></textarea>
+                            <textarea name="description" class="form-control" rows="4" value="{{old('description')}}" ></textarea>
                         </div>
                     </div>
 

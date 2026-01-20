@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use HasFactory;
+    use SoftDeletes;
     protected $fillable = [
         'name',
         'price',
@@ -14,6 +18,7 @@ class Product extends Model
         'category_id',
         'Is_trend',
         'category_name',
+        'image'
         
     ];
 
@@ -28,6 +33,9 @@ class Product extends Model
        return $query->where('name','like',"%$search%")
                     ->orWhere('description','like',"%$search%");
     }
+
+
+    
 
     public function orderItems(){
         return $this->hasMany(OrderItems::class);
