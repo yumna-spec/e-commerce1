@@ -54,7 +54,7 @@ public function searchbar(){
 }
 
 public function latestProducts(){
-    $products=Product::orderby('created_at','desc')->get();   //latest products first
+    $products=Product::orderby('created_at','desc')->paginate(2);   //latest products first
     $categories=Category::wherenotNull('parent_id')->get();
     return view('admin.adminproducttable', compact('products', 'categories'));
 }      
@@ -112,7 +112,7 @@ return view('admin.sellingProducts', compact('orderItems'));
  }
 
  public function trendingProducts(){
-    $products=Product::where('Is_trend', 1)->get();
+    $products=Product::where('Is_trend', 1)->paginate(2);
     $categories=Category::wherenotNull('parent_id')->get();
 
     return view('admin.adminproducttable', compact('products', 'categories'));

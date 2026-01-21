@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddProductRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -102,30 +103,26 @@ $product->delete();
 
 }
 
- public function addproduct(Request $request){
-
+ public function addproduct(AddProductRequest $request){
+//dd(2);
  $imagepath=null;
  if($request->hasfile('image')){
     $imagepath=$request->file('image')->store('photos','public');}
 
-    $request->validate([
-        'name'=>'required|string',
-       'price' => 'required|numeric|min:0|max:999999.99',
-         'description'=>'string',
-         'Is_trend'=>'boolean',
-         'category_name'=>'exists:categories,name',
-         'image'=>'nullable|image|mimes:jpg,png,gif|'
-  ]);
      $product = Product::create([
-        'name'=> $request->name,
-        'price'=> $request->price,
-       'description'=>$request->description,
-       'Is_trend'=>$request->Is_trend,
-       'category_name'=>$request->category_name,
+        'name'=> $request->validated('name'),
+        'price'=> $request->validated('price'),
+       'description'=>$request->validated('description'),
+       'Is_trend'=>$request->validated('Is_trend'),
+       'category_name'=>$request->validated('category_name'),
        'image'=>$imagepath,
 
 
      ]);
+
+
+
+
      $id=Category::where('name',$request->category_name)->first()->id;
         $product->update(['category_id'=>$id]);
 
