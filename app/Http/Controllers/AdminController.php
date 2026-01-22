@@ -110,7 +110,7 @@ $product->delete();
     $imagepath=$request->file('image')->store('photos','public');}
 
      $product = Product::create([
-        'name'=> $request->validated('name'),
+        'name'=> $request->get('name'),
         'price'=> $request->validated('price'),
        'description'=>$request->validated('description'),
        'Is_trend'=>$request->validated('Is_trend'),
@@ -130,17 +130,18 @@ $product->delete();
 
  }
 
- public function editproduct(Request $request, Product $product){
-    $product->update([
+ public function editproduct(Request $request,Product $product){
+
+   $product->update([
         'name' => $request->filled('name') ? $request->name : $product->name,
         'price' => $request->filled('price') ? $request->price : $product->price,
         'description' => $request->filled('description') ? $request->description : $product->description,
         'Is_trend' => $request->filled('Is_trend') ? $request->Is_trend : $product->Is_trend,
     ]);
 
-    return redirect()->route('product.edit', $product->id);
+    return redirect()->route('product.edit', $product->id );
 }
-
+ 
 
 
 

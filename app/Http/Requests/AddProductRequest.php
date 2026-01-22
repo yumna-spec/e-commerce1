@@ -25,13 +25,24 @@ class AddProductRequest extends FormRequest
         return [
 
 
-         'name'=>'required|string',
+         'name'=>'required|string|min:5',
          'price' => 'required|numeric|min:0|max:999999.99',
          'description'=>'string',
          'Is_trend'=>'boolean',
          'category_name'=>'exists:categories,name',
          'image'=>'nullable|mimes:jpg,png,gif|'
             //
+        ];
+
+
+
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.min' => 'The name must be at least :min.',
+            'image.mimes' => 'the image is not accept'
         ];
     }
 }
