@@ -81,7 +81,7 @@
       <div class="row">
         <div class="col-12">
           
-          <form method="POST" action="{{ route('product.edit.submit', $product->id) }}">
+          <form method="POST" action="{{ route('product.edit.submit', $product) }}">
             @csrf
             <div class="card my-4">
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">

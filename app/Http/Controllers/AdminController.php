@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddProductRequest;
+use App\Http\Requests\loginadminRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +25,9 @@ class AdminController extends Controller
 
 
 
-public function login (Request $request){
+public function login (loginadminRequest $request){
     $request->validate ([
- 'email'    => 'required|string|email|max:255|',
+ 'email' => 'required|string|email|max:255|',
  'password' => 'required|string|min:8',
 
 

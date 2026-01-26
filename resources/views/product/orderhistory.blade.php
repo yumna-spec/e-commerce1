@@ -3,44 +3,25 @@
 
 
 
-<div class="container-fluid py-2">
-      <div>
-        <form action="{{ route('filterprice') }}" method="get">
-          <div class="row">
-          <div class ="col-md-3 ms-left">
-            
-          <input type="text" name="search" value="{{ request('search') }}" placeholder="Search products..." class="form-control-sm" style="border-radius: 8px;">
-          </div>
-         
-          <div class="col-md-3 ms-left">
-          
-          <input type="range" name="price" value="{{ request('price') }}" min="0" max="100" class="form-range" style="width: 150px;">
-        
-        </div>
-
-
-
-          <div class="col-md-2 ms-left">
-            <button type="submit" class="btn btn-sm bg-gradient-dark mb-0">Search</button>
-          </div>
-          </div>
-        </form>
 
 
 
 
-      </div>
-     @session('success')
+
+
+
+
+      @if(session('success'))
       <div class="alert alert-success text-white alert-dismissible fade show" role="alert">
           <span class="alert-icon align-middle">
-            <span class="material-symbols-rounded text-md">thumb_up</span>
+            <span class="material-symbols-rounded text-md">check_circle</span>
           </span>
           <span class="alert-text"><strong>Success!</strong> {{ session('success') }}</span>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
           </button>
       </div>
-      @endsession
+      @endif
 
       <div class="row">
         <div class="col-12">
@@ -64,11 +45,11 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Add to List</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Qt</th>
                     </tr>
                   </thead>
                   <tbody>
-                    
+                    @isset($products)
                     @foreach($products as $product)
                     
                     <tr>
@@ -95,26 +76,15 @@
                         </span>
                       </td>
                       
-                      <td class="align-middle text-center">
-                        
-                        <form method="POST" action="{{ route('cart.add') }}">
-                            @csrf
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            
-                            <div class="d-flex align-items-center justify-content-center gap-2">
-                                <div class="input-group input-group-outline input-group-sm" style="width: 70px;">
-                                    <input type="number" name="quantity" value="{{$product->quantity}}" min="1" class="form-control text-center px-1">
-                                </div>
-                                <button type="submit"   @disabled($errors->isNotEmpty()) class="btn btn-sm bg-gradient-dark mb-0 d-flex align-items-center">
-                                    <i class="material-symbols-rounded text-sm me-1">add_shopping_cart</i> Add
-                                </button>
-                            </div>
-                        </form>
-
+                     <td>
+                        <span class="text-xs font-weight-bold text-secondary text-truncate" style="max-width: 150px; display: inline-block;">
+                           {{ ($product->pivot->quantity) }}
+                        </span>
                       </td>
+
                     </tr>
                     @endforeach
-
+@endisset
                     @if($products->isEmpty())
                     <tr>
                         <td colspan="4" class="text-center py-4">
@@ -123,6 +93,8 @@
                     </tr>
                     @endif
 
+
+                    
                   </tbody>
                 </table>
               </div>

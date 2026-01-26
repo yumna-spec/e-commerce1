@@ -10,6 +10,15 @@ class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+// protected $primaryKey = 'id';
+// protected $guarded = ['id'];
+    
+// protected $casts= [
+//     'Is_trend'=>'boolean',
+// ];
+
+
     protected $fillable = [
         'name',
         'price',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\loginRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Order;
@@ -13,19 +14,24 @@ use Illuminate\Support\Facades\DB;
 use Pest\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPass;
-
+use Nette\Utils\Image;
 
 use function Symfony\Component\String\b;
 
 class UserController extends Controller
 {
 
+
 public function register (Request $request){
+
+
+
 
 $request->validate([   
  'name'     => 'required|string|max:255',
  'email'    => 'required|string|email|max:255|unique:users',
  'password' => 'required|string|min:8|confirmed',
+
  ]);
 
 
@@ -37,6 +43,20 @@ $user=User::create([
 
 ]);
 
+if($request->hasFile('image')){
+//     $image=$request->file('image');
+//     $imagename=$image->getClientOriginalName();
+//  $image->storeAs('avatars/'.$user->id ,$imagename);
+
+$image= $request->file('image');
+ $imagename=$image->getClientOriginalName();
+$imagefile=$image->storeAs('avatars/'.$user->id,$imagename,'public'); 
+$user->update([
+    'image'=> $imagefile,
+]);
+
+
+
         Auth::login($user);
 
 
@@ -44,14 +64,9 @@ $user=User::create([
 
 
 }
-
-public function login (Request $request){
-    $request->validate ([
- 'email'    => 'required|string|email|max:255|exists:users,email',
- 'password' => 'required|string|min:8',
-
-
-    ]);
+}
+public function login (loginRequest $request){
+    
     Auth::guard('admin')->logout();
 
      $credentials = ['email' => $request->email, 'password' => $request->password];
@@ -253,7 +268,24 @@ public function checkout(Request $request)
         return redirect()->back()->with('success', 'Product deleted successfully!');
     }
 
+ public function orderhistory (){
+$user = Auth::user();
+$products = $user->products;
+
+
+return view('product.orderhistory', compact('products'));
+
+
+
+
+
     }
+
+
+
+
+    
+}
 
 
 

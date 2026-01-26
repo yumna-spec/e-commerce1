@@ -70,7 +70,7 @@ User Register            </a>
                 </div>
                 <div class="card-body">
                   
-                  <form role="form" method="POST" action="{{ route('register') }}">
+                  <form role="form" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="input-group input-group-outline mb-3 {{ $errors->has('name') ? 'is-invalid' : '' }}">
@@ -102,6 +102,14 @@ User Register            </a>
                         <input type="password" name="password_confirmation" class="form-control" required>
                     </div>
 
+                     <div class="input-group input-group-outline my-3 {{$errors->has('image')?'invalid' : '' }}">
+                      <label class="">avatar</label>
+                      <input type='file' name='image' id='image' required>
+                    </div>
+
+                    @error('password')
+                    <p class="text-danger text-xs mt-1">{{$message}}</p>
+                    @enderror
                     <div class="form-check form-check-info text-start ps-0">
                       <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
                       <label class="form-check-label" for="flexCheckDefault">

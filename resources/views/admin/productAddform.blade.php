@@ -67,8 +67,9 @@
             <li class="nav-item d-flex align-items-center">
               <form action="{{ route('admin.logout') }}" method="POST" class="m-0">
                 @csrf
-                <button type="submit" class="btn btn-link nav-link text-body font-weight-bold px-0 mb-0">
+                <button type="submit"   class="btn btn-link nav-link text-body font-weight-bold px-0 mb-0">
                   <i class="fa fa-user me-sm-1"></i> <span class="d-sm-inline d-none">Admin Logout</span>
+               
                 </button>
               </form>
             </li>

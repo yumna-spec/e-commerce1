@@ -133,3 +133,14 @@ Route::get('/trash',[ProductController::class,'trash'])->name('admin.trashproduc
 Route::post('/restore/{product}', [ProductController::class,'restore'])->name('admin.product.restore')->middleware('auth:admin');
 
 Route::post('/delete/{product}', [ProductController::class,'delete'])->name('admin.force.delete')->middleware('auth:admin');    
+
+Route::post('/avatar', [UserController::class,'addfileavatar'])->name('avatar.user')->middleware('auth:web');    
+
+
+
+use App\Http\Controllers\PhotoController;
+
+Route::resource('photos', PhotoController::class);
+Route::get('/userorder',[UserController::class,'orderhistory'])->name('order.user')->middleware('auth:web');
+
+

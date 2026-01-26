@@ -8,6 +8,11 @@ use App\Models\Category ;
 use App\Models\OrderItems;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+
+
+
+
 
 
 class ProductController extends Controller
@@ -15,10 +20,14 @@ class ProductController extends Controller
  public function index() //user view
     {
         $products = Product::all();
-        return view('product.BurgerList', compact('products'));
+       $user= Auth::user();
+        return view('product.BurgerList', compact('products','user'));
     }
 
-
+public function avatar (){
+    $user= Auth::user();
+    return view('components.layout', compact('user'));
+}
 // public function filterPrice(Request $request)
 // {      
 //     $maxprice = $request->price??100;
