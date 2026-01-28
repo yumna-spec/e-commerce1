@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Observers\ProductObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+#[ObservedBy(ProductObserver::class)]
 class Product extends Model
 {
     use HasFactory;
@@ -14,9 +16,9 @@ class Product extends Model
 // protected $primaryKey = 'id';
 // protected $guarded = ['id'];
     
-// protected $casts= [
-//     'Is_trend'=>'boolean',
-// ];
+ protected $casts= [
+     'Is_trend'=>'boolean',
+ ];
 
 
     protected $fillable = [
@@ -33,7 +35,7 @@ class Product extends Model
 
 
     public function users(){
-        return $this->belongsToMany(User::class,'cart')->withPivot('quantity');
+        return $this->belongsToMany(User::class,'cart')->withPivot('quantity')->withTimestamps();
         
         }
 

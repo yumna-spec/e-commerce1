@@ -49,43 +49,36 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @isset($products)
-                    @foreach($products as $product)
+                    @isset($orders)
+                    @foreach($orders as $order)
                     
                     <tr>
                       <td>
                         <div class="d-flex px-2">
-                          <div>
-                            <img src="{{ asset('assets/img/small-logos/icon-bulb.svg') }}" class="avatar avatar-sm rounded-circle me-2" alt="product">
-                          </div>
+                          
                           <div class="my-auto">
-                            <h6 class="mb-0 text-sm">{{ $product->name }}</h6>
+                            <h6 class="mb-0 text-sm">{{ $order->id }}</h6>
                           </div>
 
                       
                         </div>
                       </td>
-                      
-                      <td>
-                        <p class="text-sm font-weight-bold mb-0 text-success">${{ $product->price }}</p>
-                      </td>
+                     
                       
                       <td>
                         <span class="text-xs font-weight-bold text-secondary text-truncate" style="max-width: 150px; display: inline-block;">
-                           {{ Str::limit($product->description, 50) }}
                         </span>
                       </td>
                       
                      <td>
                         <span class="text-xs font-weight-bold text-secondary text-truncate" style="max-width: 150px; display: inline-block;">
-                           {{ ($product->pivot->quantity) }}
                         </span>
                       </td>
 
                     </tr>
                     @endforeach
 @endisset
-                    @if($products->isEmpty())
+                    @if($orders->isEmpty())
                     <tr>
                         <td colspan="4" class="text-center py-4">
                             <p class="text-secondary mb-0">No products available to buy.</p>
@@ -101,6 +94,12 @@
             </div>
           </div>
         </div>
+
+  
+
+
+
+</form>
       </div>
 
       <footer class="footer py-4">

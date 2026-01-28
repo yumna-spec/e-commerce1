@@ -109,6 +109,25 @@
                                     <h6 class="mb-0 text-sm">{{ $order->user->name }}</h6>
                             </div>
                         </td>
+
+<td>
+                            
+<form action="{{route('CREATEstaus')}} " method ="POST">
+  @csrf 
+<input type="hidden"  name="order_id" value ="{{ $order->id }}">
+
+<label for="Status"></label>
+<select name="name" id="name">
+<option value="Pending">Pending</option>
+<option value="In_progress">In_progress</option>
+<option value="cancel">cancel</option>
+</select>
+
+<input type="submit" value="submit">
+</form>                            
+                        </td>
+
+
                         <td>
                             <p class="text-sm font-weight-bold mb-0 text-dark">{{ $order->created_at->format('Y-m-d') }}</p>
                         </td>

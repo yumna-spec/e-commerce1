@@ -49,13 +49,13 @@ public function searchbar(){
     if(request()->hasAny(['search','price'])){  //Depend on the name of input field
         //using scopr on the model
         $products=Product::search(request()->input('search'));
-        $products=$products->where('price', '<=', $maxprice )->where('category_name','like','%'.$category_name.'%')->get();
+        $products=$products->where('price', '<=', $maxprice )->where('category_name','like','%'.$category_name.'%')->paginate(2);
         
 
 
     }
     else {
-      $products = Product::all();
+      $products = Product::paginate('2');
    }
 
     return view('admin.adminproducttable', compact('products','maxprice', 'categories'  ));
@@ -162,22 +162,16 @@ return view('admin.sellingProducts', compact('orderItems'));
  public function trash() 
  {
  $products = Product::onlyTrashed()->get();
+
  $categories=Category::wherenotNull('parent_id')->get();
    return view ('admin.trashproduct', compact('products','categories'));
  }
 
-
-
-
-
  public function restore($id)
  {
-    Product::withTrashed()->where('id', $id)->restore();
-
-    
+    Product::withTrashed()->where('id', $id)->restore(); 
  return redirect()->back();
 
-    
  }
 
  public function delete($id){

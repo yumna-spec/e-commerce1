@@ -4,6 +4,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+
 
 use App\Models\Product;
 use App\Models\Category;
@@ -143,4 +145,11 @@ use App\Http\Controllers\PhotoController;
 Route::resource('photos', PhotoController::class);
 Route::get('/userorder',[UserController::class,'orderhistory'])->name('order.user')->middleware('auth:web');
 
+
+Route::post('/assignstatus',[OrderController::class,'CREATEstaus'])->name('CREATEstaus');
+
+Route::get('/showstatus',[OrderController::class,'showallstatus'])->name('showstatus');
+
+
+Route::get('/statusmyorder',[ProductController::class,'updatestate'])->name('order.status');
 

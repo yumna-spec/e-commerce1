@@ -21,4 +21,9 @@ protected $fillable = ['user_id'];
     {
         return $this->hasMany(Orderitems::class);
     }
+
+
+    public function statuses(){
+        return $this->hasMany(Status::class);
+    }
 }

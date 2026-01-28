@@ -54,14 +54,7 @@ $imagefile=$image->storeAs('avatars/'.$user->id,$imagename,'public');
 $user->update([
     'image'=> $imagefile,
 ]);
-
-
-
-        Auth::login($user);
-
-
-
-
+Auth::login($user);
 
 }
 }
@@ -207,7 +200,7 @@ public function checkout(Request $request)
 
 
         $order = Order::query()->create([    //important //to make create direct from another model //Cause i use Facades
-            'user_id' => $user->getAuthIdentifier()
+            'user_id' => $user->getAuthIdentifier(),
         ]);
         foreach ($products as $product) {
 
@@ -219,10 +212,6 @@ public function checkout(Request $request)
             $user->products()->updateExistingPivot($product->id, [
                 'quantity' => $quantities
             ]);
-
-
-
-
 
           $orderitems=  Orderitems::create([
                 'order_id'   => $order->id,
@@ -266,18 +255,29 @@ public function checkout(Request $request)
         $user->products()->detach($product_id);
 
         return redirect()->back()->with('success', 'Product deleted successfully!');
+
+
     }
+
+
+    public function updatestate(Request $request){
+    $order = Order::query()->findOrFail($request->order_id);
+    $laststatus= $order->statuses()->latest('name')->first();
+
+    return view('myordertrack', compact('order','laststatus'));   
+
+
+
+}
 
  public function orderhistory (){
 $user = Auth::user();
-$products = $user->products;
 
-
-return view('product.orderhistory', compact('products'));
-
+$orders = $user->orders;
 
 
 
+return view('product.orderhistory', compact('orders'));
 
     }
 

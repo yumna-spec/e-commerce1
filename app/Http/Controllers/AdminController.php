@@ -121,7 +121,7 @@ $product->delete();
 
      ]);
 
-
+dd($product->Is_trend);
 
 
      $id=Category::where('name',$request->category_name)->first()->id;
