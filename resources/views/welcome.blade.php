@@ -6,7 +6,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="/">MyShop</a>
@@ -55,7 +54,13 @@
         </div>
     </div>
 </nav>
+<h6>the local {{app()->getLocale()}}</h6>
 
+{{ __("auth.failed")}}
+
+
+<a href="lang/en">english</a>
+<a href="lang/ar">arabic</a>
 <div class="container mt-5">
     <div class="row align-items-center">
         <div class="col-md-6">
@@ -75,7 +80,7 @@
 
             @auth('web')
                 <div class="alert alert-success">
-                    <strong>Welcome back!</strong> Ready to shop?
+                    <strong>{{__('home.Welcome back! Ready to shop?')}}</strong>
                 </div>
                 <a href="{{ route('product.list') }}" class="btn btn-success btn-lg">
                     Start Shopping

@@ -1,16 +1,6 @@
 
 <x-layouts>
 
-
-
-
-
-
-
-
-
-
-
       @if(session('success'))
       <div class="alert alert-success text-white alert-dismissible fade show" role="alert">
           <span class="alert-icon align-middle">
@@ -64,6 +54,13 @@
                         </div>
                       </td>
                      
+                     
+                       <td class="align-middle text-center">
+                            <a href="{{ route('ordertracking', ['id' => $order->id]) }}" class="btn btn-sm btn-outline-dark mb-0">
+                                View Details
+                            </a>
+                        </td>
+
                       
                       <td>
                         <span class="text-xs font-weight-bold text-secondary text-truncate" style="max-width: 150px; display: inline-block;">

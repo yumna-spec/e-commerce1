@@ -12,11 +12,20 @@ use App\Models\Category;
 
 
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/lang/{lang}',function($lang):RedirectResponse{
+session()->put('locale', $lang);    //helper method
+
+return redirect()->back();   //the language change depends on the last request
+}
+
+
+);
 // Dashboard after AUTH
 
 
@@ -146,10 +155,14 @@ Route::resource('photos', PhotoController::class);
 Route::get('/userorder',[UserController::class,'orderhistory'])->name('order.user')->middleware('auth:web');
 
 
-Route::post('/assignstatus',[OrderController::class,'CREATEstaus'])->name('CREATEstaus');
+Route::post('/assignstatus',[OrderController::class,'CREATEstaus'])->name('CREATEstaus')->middleware('auth:admin');
 
 Route::get('/showstatus',[OrderController::class,'showallstatus'])->name('showstatus');
 
 
-Route::get('/statusmyorder',[ProductController::class,'updatestate'])->name('order.status');
+Route::get('/statusmyorder/{id}',[UserController::class,'updatestate'])->name('ordertracking');
+
+Route::post('/cancelmyorder',[UserController::class,'cancelstatus'])->name('cancelmyorder');
+
+
 

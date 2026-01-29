@@ -1,6 +1,4 @@
-
-
-     @session('success')
+@session('success')
       <div class="alert alert-success text-white alert-dismissible fade show" role="alert">
           <span class="alert-icon align-middle">
             <span class="material-symbols-rounded text-md">thumb_up</span>
@@ -30,24 +28,26 @@
                   </thead>
                   <tbody>
                     
-                    @foreach($status as $st)
+                    @if($status)
                     
                     <tr>
                          <td>
-                        <p class="text-sm font-weight-bold mb-0 text-success">{{ $st->order_id }}</p>
+                        <p class="text-sm font-weight-bold mb-0 text-success">{{ $status->order_id }}</p>
                       </td>
                       <td>
                         <div class="d-flex px-2">
                          
                           <div class="my-auto">
-                            <h6 class="mb-0 text-sm">{{ $st->name }}</h6>
+                            <h6 class="mb-0 text-sm">{{ $status->name }}</h6>
                           </div>
                       
                         </div>
                       </td>
+
+                      
                   
                   <td>    <div class ="my-auto">
-     <td>{{ $st->created_at->format('Y-m-d H:i:s') }}</td>
+     <td>{{ $status->created_at->format('Y-m-d H:i:s') }}</td>
 </div>
 </td>
                     
@@ -55,7 +55,7 @@
                       
                      
                     </tr>
-                    @endforeach
+                    @endif
 
                  
 

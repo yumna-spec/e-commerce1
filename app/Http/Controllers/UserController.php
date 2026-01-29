@@ -6,6 +6,8 @@ use App\Http\Requests\loginRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Status;
+
 use App\Models\Orderitems;
 
 
@@ -225,6 +227,11 @@ public function checkout(Request $request)
 
         }
 
+        Status::create([
+            'order_id'=>$order->id,
+            'name'=>'pending',
+            
+        ]);
 
 
 
@@ -260,12 +267,33 @@ public function checkout(Request $request)
     }
 
 
-    public function updatestate(Request $request){
-    $order = Order::query()->findOrFail($request->order_id);
-    $laststatus= $order->statuses()->latest('name')->first();
+    public function updatestate(Request $request,$id){
+    $order = Order::query()->findOrFail($id);
 
-    return view('myordertrack', compact('order','laststatus'));   
+    $laststatus= $order->statuses()->latest('created_at')->first();
 
+
+    return view('order.ordertrackinguser', compact('order','laststatus'));   
+
+
+
+}
+
+
+public function cancelstatus(Request $request){
+
+    $order = Order::findOrFail($request->order_id);
+    
+        $laststatus= $order->statuses()->latest('created_at')->first();
+
+      $status=  Status::create([ 
+            "order_id"=> $request->order_id,
+
+        
+      'name'=>$request->name ]);
+
+
+        return view('order.ordertrackinguser', compact('order','laststatus','status'));
 
 
 }

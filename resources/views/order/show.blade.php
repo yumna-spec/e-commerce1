@@ -118,11 +118,17 @@
 
 <label for="Status"></label>
 <select name="name" id="name">
-<option value="Pending">Pending</option>
+<option value="pending">Pending</option>
 <option value="In_progress">In_progress</option>
 <option value="cancel">cancel</option>
-</select>
+<option value="cancel">out delivery</option>
+<option value="cancel">preparing</option>
+<option value="cancel">Delivered</option>
 
+
+
+</select>
+<input type="text" name="notes" id="notes">
 <input type="submit" value="submit">
 </form>                            
                         </td>

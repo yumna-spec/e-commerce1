@@ -116,7 +116,7 @@
                     <input type="text" class="form-control border-0" placeholder="Search products..." 
                            name="search" value="{{ request('search') }}">
                 </div>
-
+<!-- why here i use Query parameter -->
 <div class="input-group bg-white border-radius-lg p-1 shadow-sm border">
         <label for="category_name" class="form-label mb-0"><b></b></label>
 

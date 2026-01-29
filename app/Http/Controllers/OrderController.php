@@ -17,19 +17,19 @@ public function CREATEstaus(Request $request){
     $order=Order::where("id",$request->order_id)->first();
     
 $status =Status::create([
-    "order_id"=> $request->order_id,
-    "name"=>$request->name,
+    'order_id'=> $request->order_id,
+    'name'=>$request->name,
+    'notes'=>$request->notes
 
 ]);
-
-return view("order.ordertracking",compact("order","status"));
+return view("order.ordertracking",compact('order','status'));
 }
     
 
 public function showallstatus(Request $request){
 $status=Status::all();  
 
-    return view("order.ordertracking",compact("status"));
+    return view("order.allstatus",compact('status'));
 
 
 
