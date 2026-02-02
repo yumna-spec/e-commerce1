@@ -34,9 +34,9 @@
     <div class="collapse navbar-collapse w-auto" id="sidenav-collapse-main">
       <ul class="navbar-nav">
 
-        <x-aside href="{{ route('dashboarduser') }}" :active="request()->is('userdashboard')"     id="dashboard" >Dashboard</x-aside>
-        <x-aside href="{{ route('product.list')  }}"  :active="request()->is('product')">Shop Products</x-aside>
-       <x-aside href="{{ route('order.user')  }}"  :active="request()->is('userorder')">Shop Products</x-aside>
+        <x-aside href="{{ route('dashboarduser') }}" :active="request()->is('userdashboard')"     id="dashboard" >{{__('product.Dashboard')}}</x-aside>
+        <x-aside href="{{ route('product.list')  }}"  :active="request()->is('product')">{{__('product.Shop Products')}}</x-aside>
+       <x-aside href="{{ route('order.user')  }}"  :active="request()->is('userorder')">{{__('product.Shop Products')}}</x-aside>
 
       </ul>
     </div>
@@ -61,7 +61,7 @@
                     @csrf
                     
                     <button type="submit" class="text-primary ">
-                        <i class="fa fa-user me-sm-1"></i> <span class="d-sm-inline d-none">Logout</span>
+                        <i class="fa fa-user me-sm-1"></i> <span class="d-sm-inline d-none">{{__('home.logout')}}</span>
                     </button>
                 </form>
             </li>

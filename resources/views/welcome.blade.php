@@ -54,10 +54,10 @@
         </div>
     </div>
 </nav>
-<h6>the local {{app()->getLocale()}}</h6>
+<h6> {{__('the locale')}}
+     {{app()->getLocale()}}</h6>
 
 {{ __("auth.failed")}}
-
 
 <a href="lang/en">english</a>
 <a href="lang/ar">arabic</a>

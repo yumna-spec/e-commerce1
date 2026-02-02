@@ -67,7 +67,7 @@ public function login (loginRequest $request){
      $credentials = ['email' => $request->email, 'password' => $request->password];
 
         if (Auth::guard('web')->attempt($credentials)) {
-            return redirect()->intended(route('dashboarduser'));
+            return redirect()->intended(route('dashboarduser',['locale' => app()->getLocale()]));
         }
         
 

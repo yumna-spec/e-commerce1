@@ -107,6 +107,7 @@ $product->delete();
  public function addproduct(AddProductRequest $request){
 //dd(2);
  $imagepath=null;
+ 
  if($request->hasfile('image')){
     $imagepath=$request->file('image')->store('photos','public');}
 
@@ -118,14 +119,17 @@ $product->delete();
        'category_name'=>$request->validated('category_name'),
        'image'=>$imagepath,
 
+    
+       
+
 
      ]);
+        
 
-dd($product->Is_trend);
 
 
-     $id=Category::where('name',$request->category_name)->first()->id;
-        $product->update(['category_id'=>$id]);
+    //  $id=Category::where('name',$request->category_name)->first()->id;
+    //     $product->update(['category_id'=>$id]);
 
  return redirect()->back()->with('success', 'Product added successfully!');
 

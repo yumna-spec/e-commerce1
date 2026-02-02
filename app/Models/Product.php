@@ -7,19 +7,28 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 #[ObservedBy(ProductObserver::class)]
 class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use HasTranslations;
+
 
 // protected $primaryKey = 'id';
 // protected $guarded = ['id'];
-    
+protected $translate=['country'];
+
+
  protected $casts= [
      'Is_trend'=>'boolean',
+     'name'=>'array',
+     'description'=>'array'
  ];
 
+
+ 
 
     protected $fillable = [
         'name',
@@ -29,7 +38,8 @@ class Product extends Model
         'category_id',
         'Is_trend',
         'category_name',
-        'image'
+        'image',
+        
         
     ];
 
@@ -41,7 +51,10 @@ class Product extends Model
 
         public function scopeSearch($query, $search )
     {
-       return $query->where('name','like',"%$search%")
+    
+       return $query->where('name->en','like',"%$search%")
+       ->orWhere('name->ar','like',"%$search%")
+       
                     ->orWhere('description','like',"%$search%");
     }
 

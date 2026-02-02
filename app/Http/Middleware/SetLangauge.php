@@ -15,7 +15,7 @@ class SetLangauge
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(session()->has('locale')) {
+        if(session()->has('locale')) {  //يمنى اعتبريها نفس isset but inside seesion
             app()->setLocale(session()->get('locale'));
            }
            

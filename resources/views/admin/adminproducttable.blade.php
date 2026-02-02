@@ -232,7 +232,7 @@
                             <img src="{{ asset('assets/img/small-logos/icon-bulb.svg') }}" class="avatar avatar-sm rounded-circle me-2" alt="product">
                           </div>
                           <div class="my-auto">
-                            <h6 class="mb-0 text-sm">{{ $product->name }}</h6>
+                            <h6 class="mb-0 text-sm"> {{ $product->name[app()->getLocale()] }} </h6>
                           </div>
                         </div>
                       </td>
@@ -265,7 +265,7 @@
                       
                       <td>
                         <span class="text-xs font-weight-bold text-secondary text-truncate" style="max-width: 150px; display: inline-block;">
-                           {{ Str::limit($product->description, 50) }}
+                           {{ Str::limit($product->description[app()->getLocale()], 50) }}
                         </span>
                       </td>
 

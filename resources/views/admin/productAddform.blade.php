@@ -108,17 +108,39 @@
 
                 <div class="row">
 
-                  <div class="col-md-6">
-                    <div class="input-group input-group-outline my-3">
-                      <label class="form-label">Product Name</label>
-                      <input type="text" name="name" class="form-control" value="{{old('name')}}" required>
-                    </div>
-                  </div>
+@foreach(config('app.available_Locales') as $locale)
+            <label>Text for {{ $locale }}</label>
+           
+
+
+            <div class="mb-4">
+                <label for="name[{{$locale}}]" class="sr-only">name</label>
+                <input type="text" name="name[{{$locale}}]" id="name[{{$locale}}]"
+                       placeholder="name"
+                       class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('name') border-red-500 @enderror"
+                       >
+              
+            </div>
+            <div class="mb-4">
+                <label for="description[{{$locale}}]" class="sr-only">description</label>
+                <input type="text" name="description[{{$locale}}]" id="description[{{$locale}}]"
+                       placeholder="description"
+                       class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('description') border-red-500 @enderror"
+                       >
+              
+            </div>
+            
+
+    @endforeach
+
+
+
+
 
                   <div class="col-md-6">
                     <div class="input-group input-group-outline my-3">
                       <label class="form-label">Price</label>
-                      <input type="number" name="price" class="form-control" step="0.01" value="{{  old  ('price') }}" required>
+                      <input type="number" name="price" class="form-control" step="0.01"  required>
                     </div>
                   </div>
                   Is_trend:
@@ -130,6 +152,11 @@
                       </select>
                     </div>
                   </div>
+
+
+
+
+
 
                   <div class="col-md-3">
                     <div class="input-group input-group-outline my-3">
@@ -153,12 +180,7 @@
 
 
 
-                  <div class="col-3">
-                    <div class="input-group input-group-outline my-3">
-                      <label class="form-label">Description</label>
-                      <textarea name="description" class="form-control" rows="4" value="{{old('description')}}"></textarea>
-                    </div>
-                  </div>
+             
 
                 </div>
 

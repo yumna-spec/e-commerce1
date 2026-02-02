@@ -19,14 +19,31 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/lang/{lang}',function($lang):RedirectResponse{
-session()->put('locale', $lang);    //helper method
+ session()->put('locale', $lang);    //helper method
 
-return redirect()->back();   //the language change depends on the last request
-}
+ return redirect()->back();   //the language change depends on the last request
+ }
 
 
-);
+
+
+ );
+
 // Dashboard after AUTH
+
+
+// Route::get('/{Locale?}',function($Locale=null){
+// if(isset($Locale)&& in_array($Locale,config('app.available_Locales'))){
+//   app()->setLocale($Locale);
+
+// }
+
+//    return view('welcome');
+
+
+// });
+
+
 
 
 Route::get('/admin/dashboard', function () {
