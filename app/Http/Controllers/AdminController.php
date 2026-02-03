@@ -112,9 +112,9 @@ $product->delete();
     $imagepath=$request->file('image')->store('photos','public');}
 
      $product = Product::create([
-        'name'=> $request->get('name'),
-        'price'=> $request->validated('price'),
-       'description'=>$request->validated('description'),
+        'name'=> ['en'=>$request->input('name_en'),'ar'=>$request->input('name_ar')],
+       'price'=> $request->validated('price'),
+       'description'=>['en'=>$request->input('des_en'),'ar'=>$request->input('des_ar')],
        'Is_trend'=>$request->validated('Is_trend'),
        'category_name'=>$request->validated('category_name'),
        'image'=>$imagepath,
@@ -125,6 +125,7 @@ $product->delete();
 
      ]);
         
+
 
 
 

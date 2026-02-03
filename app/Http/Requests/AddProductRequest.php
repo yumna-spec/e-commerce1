@@ -25,9 +25,9 @@ class AddProductRequest extends FormRequest
         return [
 
 
-         'name'=>'required',
+        // 'name'=>'required',
          'price' => 'required|numeric|min:0|max:999999.99',
-         'description'=>'required',
+       //  'description'=>'required',
          'Is_trend'=>'boolean',
          'category_name'=>'exists:categories,name',
          'image'=>'nullable|mimes:jpg,png,gif|'

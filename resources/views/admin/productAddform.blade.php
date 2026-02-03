@@ -108,33 +108,44 @@
 
                 <div class="row">
 
-@foreach(config('app.available_Locales') as $locale)
-            <label>Text for {{ $locale }}</label>
-           
-
-
-            <div class="mb-4">
-                <label for="name[{{$locale}}]" class="sr-only">name</label>
-                <input type="text" name="name[{{$locale}}]" id="name[{{$locale}}]"
-                       placeholder="name"
-                       class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('name') border-red-500 @enderror"
-                       >
-              
-            </div>
-            <div class="mb-4">
-                <label for="description[{{$locale}}]" class="sr-only">description</label>
-                <input type="text" name="description[{{$locale}}]" id="description[{{$locale}}]"
+<div class="mb-4">
+                <label for="description" class="sr-only">description</label>
+                <input type="text" name="des_en" id="des_en"
                        placeholder="description"
                        class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('description') border-red-500 @enderror"
                        >
               
             </div>
+
+
+<div class="mb-4">
+                <label for="name in en" >name</label>
+                <input type="text" name="name_en" id="name_en"
+                       placeholder="description"
+                       class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('name_en') border-red-500 @enderror"
+                       >
+              
+            </div>
+
+
+
             
-
-    @endforeach
-
-
-
+<div class="mb-4">
+                <label for="description ar" class="sr-only">description</label>
+                <input type="text" name="des_ar" id="des_ar"
+                       placeholder="description"
+                       class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('description') border-red-500 @enderror"
+                       >
+              
+            </div>
+<div class="mb-4">
+                <label for="name in ar" >name</label>
+                <input type="text" name="name_ar" id="name_ar"
+                       placeholder="description"
+                       class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('name_ar') border-red-500 @enderror"
+                       >
+              
+            </div>
 
 
                   <div class="col-md-6">

@@ -15,17 +15,18 @@ class Product extends Model
     use SoftDeletes;
     use HasTranslations;
 
+    public array $translatable = ['name','description'];
 
 // protected $primaryKey = 'id';
 // protected $guarded = ['id'];
 protected $translate=['country'];
 
 
- protected $casts= [
-     'Is_trend'=>'boolean',
-     'name'=>'array',
-     'description'=>'array'
- ];
+//  protected $casts= [
+//      'Is_trend'=>'boolean',
+//      'name'=>'array',
+//      'description'=>'array'
+//  ];
 
 
  
