@@ -1,155 +1,222 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
-  <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
-  <title>
-    Sign Up
-  </title>
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
-  <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
-  <link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
-  <link id="pagestyle" href="{{ asset('assets/css/material-dashboard.css?v=3.2.0') }}" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fffaf2">
+    <title>{{ __('login.sign_up_title') }} — Happy Burger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #28231f;
+            --muted: #70665e;
+            --paper: #fffaf2;
+            --cream: #f6eddf;
+            --orange: #e95e2f;
+            --orange-dark: #c64620;
+            --yellow: #f8c84e;
+            --line: #e8e0d5;
+            --danger: #b42318;
+            font-family: "DM Sans", "Trebuchet MS", Arial, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        body { min-height: 100vh; margin: 0; color: var(--ink); background: var(--paper); }
+        a { color: inherit; text-decoration: none; }
+        .topbar { width: min(1160px, calc(100% - 48px)); min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 0 auto; }
+        .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 900; letter-spacing: -.05em; }
+        .brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--yellow); }
+        .brand-mark svg { width: 21px; height: 21px; }
+        .top-link { color: var(--muted); font-size: .9rem; font-weight: 700; }
+        .top-link:hover, .signin-link:hover { color: var(--orange-dark); }
+        main { min-height: calc(100vh - 140px); display: grid; place-items: center; padding: 18px 24px 42px; }
+        .auth-shell { width: min(1100px, 100%); min-height: 690px; display: grid; grid-template-columns: .82fr 1.18fr; overflow: hidden; border: 1px solid rgba(40,35,31,.08); border-radius: 28px; background: white; box-shadow: 0 30px 80px rgba(45,32,18,.11); }
+        .visual { position: relative; min-height: 100%; display: flex; align-items: flex-end; padding: 44px; overflow: hidden; color: white; background: var(--ink); }
+        .visual::before { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(26,20,15,.05) 5%, rgba(26,20,15,.15) 35%, rgba(26,20,15,.84) 100%), url("{{ asset('images/resturant.jpg') }}") center 56% / cover; content: ""; }
+        .visual-content { position: relative; max-width: 370px; }
+        .eyebrow { margin: 0 0 14px; color: var(--yellow); font-size: .73rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+        .visual h1 { margin: 0 0 13px; font-size: clamp(2.3rem, 4vw, 3.6rem); line-height: .98; letter-spacing: -.065em; }
+        .visual p:last-child { margin: 0; color: rgba(255,255,255,.82); font-size: .98rem; line-height: 1.7; }
+        .form-side { display: flex; align-items: center; justify-content: center; padding: 48px clamp(30px, 5vw, 66px); }
+        .form-content { width: min(100%, 440px); }
+        .form-kicker { margin: 0 0 8px; color: var(--orange-dark); font-size: .77rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+        h2 { margin: 0 0 8px; font-size: 2rem; letter-spacing: -.055em; }
+        .subtitle { margin: 0 0 22px; color: var(--muted); font-size: .94rem; line-height: 1.6; }
+        .alert { margin-bottom: 18px; padding: 13px 16px; border: 1px solid #f3c6c2; border-radius: 12px; color: var(--danger); background: #fff3f1; font-size: .87rem; }
+        .alert ul { display: grid; gap: 4px; margin: 0; padding-inline-start: 20px; }
+        .field { margin-bottom: 14px; }
+        .field label { display: block; margin-bottom: 7px; font-size: .84rem; font-weight: 700; }
+        .field input { width: 100%; height: 47px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; outline: none; color: var(--ink); background: #fff; font: inherit; font-size: .92rem; transition: border-color .18s, box-shadow .18s; }
+        .field input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(233,94,47,.14); }
+        .field.has-error input { border-color: var(--danger); }
+        .password-wrap { position: relative; }
+        .password-wrap input { padding-inline-end: 65px; }
+        .toggle-pass { position: absolute; inset-block: 0; inset-inline-end: 13px; border: 0; color: var(--muted); background: transparent; font: inherit; font-size: .8rem; font-weight: 700; cursor: pointer; }
+        .error-text { display: block; margin: 6px 2px 0; color: var(--danger); font-size: .8rem; }
+        .avatar-row { display: flex; align-items: center; gap: 13px; margin: 18px 0; padding: 12px; border: 1px dashed #d9cfc1; border-radius: 12px; background: #fffdf9; }
+        .avatar-preview { width: 50px; height: 50px; display: grid; flex: 0 0 auto; place-items: center; overflow: hidden; border-radius: 50%; color: var(--orange-dark); background: var(--cream) center / cover no-repeat; }
+        .avatar-preview svg { width: 23px; height: 23px; }
+        .avatar-info { min-width: 0; flex: 1; }
+        .avatar-title { display: block; margin-bottom: 3px; font-size: .84rem; font-weight: 700; }
+        .avatar-hint { display: block; overflow: hidden; color: var(--muted); font-size: .75rem; text-overflow: ellipsis; white-space: nowrap; }
+        .avatar-row input[type="file"] { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
+        .avatar-row input[type="file"]:focus-visible + .btn-upload { outline: 3px solid rgba(233,94,47,.25); outline-offset: 2px; }
+        .btn-upload { flex: 0 0 auto; padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink); background: white; font-size: .78rem; font-weight: 700; cursor: pointer; }
+        .btn-upload:hover { border-color: var(--orange); color: var(--orange-dark); }
+        .submit { width: 100%; min-height: 49px; display: inline-flex; justify-content: center; align-items: center; margin-top: 4px; border: 0; border-radius: 999px; color: white; background: var(--orange); font: inherit; font-weight: 800; cursor: pointer; transition: transform .18s, background .18s; }
+        .submit:hover { transform: translateY(-1px); background: var(--orange-dark); }
+        .signin { margin: 20px 0 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); text-align: center; font-size: .87rem; }
+        .signin-link { margin-inline-start: 4px; color: var(--orange-dark); font-weight: 800; }
+        footer { padding: 0 20px 20px; color: var(--muted); text-align: center; font-size: .77rem; }
+        @media (max-width: 820px) {
+            main { min-height: auto; padding: 12px 18px 35px; }
+            .auth-shell { max-width: 560px; grid-template-columns: 1fr; border-radius: 22px; }
+            .visual { min-height: 205px; padding: 26px 30px; }
+            .visual::before { background-position: center 53%; }
+            .visual h1 { max-width: 380px; font-size: 2.45rem; }
+            .form-side { padding: 34px 30px 36px; }
+        }
+        @media (max-width: 460px) {
+            .topbar { width: calc(100% - 36px); min-height: 70px; }
+            .brand { font-size: 1.05rem; }
+            .top-link { font-size: .82rem; }
+            .visual { min-height: 175px; padding: 22px; }
+            .visual h1 { font-size: 2.1rem; }
+            .form-side { padding: 28px 21px; }
+            .avatar-row { gap: 10px; padding: 10px; }
+            .avatar-preview { width: 43px; height: 43px; }
+            .btn-upload { padding: 8px 10px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition-duration: .01ms !important; }
+        }
+    </style>
 </head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="{{ route('home') }}">
+            <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 9.5c.7-3.1 3.3-5 8-5s7.3 1.9 8 5M4 12h16m-14 3h12m-11 3h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            <span>Happy Burger</span>
+        </a>
+        <a class="top-link" href="{{ route('login.form') }}">{{ __('login.have_account') }} {{ __('login.sign_in_title') }}</a>
+    </header>
 
-<body class="">
-  <div class="container position-sticky z-index-sticky top-0">
-    <div class="row">
-      <div class="col-12">
-        <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4">
-          <div class="container-fluid ps-2 pe-0">
-            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="#">
-User Register            </a>
-            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon mt-2">
-                <span class="navbar-toggler-bar bar1"></span>
-                <span class="navbar-toggler-bar bar2"></span>
-                <span class="navbar-toggler-bar bar3"></span>
-              </span>
-            </button>
-            <div class="collapse navbar-collapse" id="navigation">
-              <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="{{ route('register') }}">
-                    <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
-                    Sign Up
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-2" href="{{ route('login') }}">
-                    <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                    Sign In
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        </div>
-    </div>
-  </div>
-  <main class="main-content  mt-0">
-    <section>
-      <div class="page-header min-vh-100">
-        <div class="container">
-          <div class="row">
-            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('{{ asset('assets/img/illustrations/illustration-signup.jpg') }}'); background-size: cover;">
-              </div>
-            </div>
-            <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
-              <div class="card card-plain">
-                <div class="card-header">
-                  <h4 class="font-weight-bolder">Sign Up</h4>
-                  <p class="mb-0">Enter your email and password to register</p>
+    <main>
+        <div class="auth-shell">
+            <section class="visual" aria-label="{{ __('login.brand_message') }}">
+                <div class="visual-content">
+                    <p class="eyebrow">{{ __('login.brand_eyebrow') }}</p>
+                    <h1>{{ __('login.join_headline') }}</h1>
+                    <p>{{ __('login.join_message') }}</p>
                 </div>
-                <div class="card-body">
-                  
-                  <form role="form" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
-                    @csrf
+            </section>
+            <section class="form-side" aria-labelledby="form-title">
+                <div class="form-content">
+                    <p class="form-kicker">{{ __('login.join_kicker') }}</p>
+                    <h2 id="form-title">{{ __('login.sign_up_title') }}</h2>
+                    <p class="subtitle">{{ __('login.sign_up_subtitle') }}</p>
 
-                    <div class="input-group input-group-outline mb-3 {{ $errors->has('name') ? 'is-invalid' : '' }}">
-                      <label class="form-label">Name</label>
-                      <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
-                    </div>
-                    @error('name')
-                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
-                    @enderror
+                    @if ($errors->any())
+                        <div class="alert" role="alert">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-                    <div class="input-group input-group-outline mb-3 {{ $errors->has('email') ? 'is-invalid' : '' }}">
-                      <label class="form-label">Email</label>
-                      <input type="email" name="email" class="form-control" value="{{ old('email') }}" required>
-                    </div>
-                    @error('email')
-                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
-                    @enderror
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="field {{ $errors->has('name') ? 'has-error' : '' }}">
+                            <label for="name">{{ __('login.full_name') }}</label>
+                            <input id="name" type="text" name="name" value="{{ old('name') }}" autocomplete="name" required autofocus>
+                            @error('name')
+                                <span class="error-text">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                    <div class="input-group input-group-outline mb-3 {{ $errors->has('password') ? 'is-invalid' : '' }}">
-                      <label class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" required>
-                    </div>
-                    @error('password')
-                        <p class="text-danger text-xs mt-1">{{ $message }}</p>
-                    @enderror
+                        <div class="field {{ $errors->has('email') ? 'has-error' : '' }}">
+                            <label for="email">{{ __('login.Email') }}</label>
+                            <input id="email" type="email" name="email" value="{{ old('email') }}" autocomplete="email" required>
+                            @error('email')
+                                <span class="error-text">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                    <div class="input-group input-group-outline mb-3">
-                        <label class="form-label">Confirm Password</label>
-                        <input type="password" name="password_confirmation" class="form-control" required>
-                    </div>
+                        <div class="field {{ $errors->has('password') ? 'has-error' : '' }}">
+                            <label for="password">{{ __('login.Password') }}</label>
+                            <div class="password-wrap">
+                                <input id="password" type="password" name="password" autocomplete="new-password" required>
+                                <button class="toggle-pass" type="button" data-target="password" aria-label="{{ __('login.show_password') }}">{{ __('login.show_password') }}</button>
+                            </div>
+                            @error('password')
+                                <span class="error-text">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                     <div class="input-group input-group-outline my-3 {{$errors->has('image')?'invalid' : '' }}">
-                      <label class="">avatar</label>
-                      <input type='file' name='image' id='image' required>
-                    </div>
+                        <div class="field">
+                            <label for="password_confirmation">{{ __('login.confirm_password') }}</label>
+                            <div class="password-wrap">
+                                <input id="password_confirmation" type="password" name="password_confirmation" autocomplete="new-password" required>
+                                <button class="toggle-pass" type="button" data-target="password_confirmation" aria-label="{{ __('login.show_password') }}">{{ __('login.show_password') }}</button>
+                            </div>
+                        </div>
 
-                    @error('password')
-                    <p class="text-danger text-xs mt-1">{{$message}}</p>
-                    @enderror
-                    <div class="form-check form-check-info text-start ps-0">
-                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                      <label class="form-check-label" for="flexCheckDefault">
-                        I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-                      </label>
-                    </div>
+                        <div class="avatar-row">
+                            <div class="avatar-preview" id="avatarPreview" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.7"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                            </div>
+                            <div class="avatar-info">
+                                <span class="avatar-title">{{ __('login.profile_photo') }}</span>
+                                <span class="avatar-hint" id="avatarName">{{ __('login.photo_hint') }}</span>
+                            </div>
+                            <input type="file" name="image" id="image" accept="image/jpeg,image/png" aria-label="{{ __('login.profile_photo') }}" required>
+                            <label for="image" class="btn-upload">{{ __('login.choose_photo') }}</label>
+                        </div>
+                        @error('image')
+                            <span class="error-text">{{ $message }}</span>
+                        @enderror
 
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-lg bg-gradient-dark btn-lg w-100 mt-4 mb-0">Sign Up</button>
-                    </div>
-                  </form>
-                  </div>
-                <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                  <p class="mb-2 text-sm mx-auto">
-                    Already have an account?
-                    <a href="{{ route('login') }}" class="text-primary text-gradient font-weight-bold">Sign in</a>
-                  </p>
+                        <button class="submit" type="submit">{{ __('login.create_account') }}</button>
+                    </form>
+
+                    <p class="signin">{{ __('login.have_account') }} <a class="signin-link" href="{{ route('login.form') }}">{{ __('login.sign_in_title') }}</a></p>
                 </div>
-              </div>
-            </div>
-          </div>
+            </section>
         </div>
-      </div>
-    </section>
-  </main>
-  <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
-  <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
-  <script src="{{ asset('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-  </script>
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.2.0') }}"></script>
+    </main>
+
+    <footer>© {{ date('Y') }} Happy Burger. {{ __('home.footer_note') }}</footer>
+    <script>
+        document.querySelectorAll('.toggle-pass').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var input = document.getElementById(button.dataset.target);
+                var showing = input.type === 'password';
+                input.type = showing ? 'text' : 'password';
+                button.textContent = showing ? @json(__('login.hide_password')) : @json(__('login.show_password'));
+                button.setAttribute('aria-label', button.textContent);
+            });
+        });
+
+        document.getElementById('image').addEventListener('change', function () {
+            var file = this.files[0];
+            if (!file) return;
+
+            document.getElementById('avatarName').textContent = file.name;
+            var reader = new FileReader();
+            reader.addEventListener('load', function () {
+                var preview = document.getElementById('avatarPreview');
+                preview.style.backgroundImage = 'url("' + reader.result + '")';
+                preview.replaceChildren();
+            });
+            reader.readAsDataURL(file);
+        });
+    </script>
 </body>
-
 </html>

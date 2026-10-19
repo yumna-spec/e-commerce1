@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category ;
 use App\Models\OrderItems;
+use App\Models\Order ;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -17,11 +18,58 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
- public function index() //user view
+ public function index(Request $request) //user view
     {
-        $products = Product::all();
-       $user= Auth::user();
-        return view('product.BurgerList', compact('products','user'));
+        return $this->showMenu($request);
+    }
+
+    private function showMenu(Request $request)
+    {
+        $filters = $request->validate([
+            'search' => ['nullable', 'string', 'max:100'],
+            'category' => ['nullable', 'string', 'max:100'],
+            'max_price' => ['nullable', 'numeric', 'min:0'],
+            'sort' => ['nullable', 'in:featured,price_asc,price_desc'],
+        ]);
+
+        $productsQuery = Product::query()
+            ->where('category_name', 'like', '%burger%');
+
+        if (!empty($filters['search'])) {
+            $search = '%' . $filters['search'] . '%';
+            $productsQuery->where(function ($query) use ($search) {
+                $query->where('name->en', 'like', $search)
+                    ->orWhere('name->ar', 'like', $search)
+                    ->orWhere('description->en', 'like', $search)
+                    ->orWhere('description->ar', 'like', $search);
+            });
+        }
+
+        if (!empty($filters['category'])) {
+            $productsQuery->where('category_name', $filters['category']);
+        }
+
+        if (isset($filters['max_price']) && $filters['max_price'] !== '') {
+            $productsQuery->where('price', '<=', $filters['max_price']);
+        }
+
+        match ($filters['sort'] ?? 'featured') {
+            'price_asc' => $productsQuery->orderBy('price'),
+            'price_desc' => $productsQuery->orderByDesc('price'),
+            default => $productsQuery->orderByDesc('Is_trend')->orderBy('name'),
+        };
+
+        $products = $productsQuery->get();
+        $categories = Product::query()
+            ->where('category_name', 'like', '%burger%')
+            ->whereNotNull('category_name')
+            ->where('category_name', '<>', '')
+            ->distinct()
+            ->orderBy('category_name')
+            ->pluck('category_name');
+        $user = Auth::user();
+
+        return view('product.BurgerList', compact('products', 'categories', 'user'));
     }
 
 public function avatar (){
@@ -133,28 +181,9 @@ return view('admin.sellingProducts', compact('orderItems'));
 
 
 
- public function filterbypriceandsearch(){
-    $search=request('search', null);
-    $maxprice=request('price', 100);
-    if($search){
-            // $products=Product::query()->when($search, function ($query, $search) {
-            //             return $query->where('name', 'like', '%' . $search . '%');
-            //         })->where('price', '<=', $maxprice)->get();
-        $products=Product::where('name','like','%'.$search.'%')->where('price', '<=', $maxprice)->get();
-
-    //$products=Product::query()->where('name','like','%'.$search.'%')->where('price', '<=', $maxprice)->get();
-    }
-    else {
-        $products=Product::where('price', '<=', $maxprice)->get();
-    }
-
-
-    return view('product.BurgerList', compact('products','maxprice'));
-
-
-
-
-
+ public function filterbypriceandsearch(Request $request)
+ {
+    return $this->showMenu($request);
  }
 
 
@@ -179,14 +208,13 @@ return view('admin.sellingProducts', compact('orderItems'));
  }
 
 
+ public function salebyday(){
+$salesStats = Order::select(
+    DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'),DB::raw('COUNT(*) as count'),)-> groupbyraw('DATE_FORMAT(created_at,"%Y-%m")')->get();
+  dd($salesStats);
+}
 
-
-
-
-
-
-
-
+ 
 
 
 

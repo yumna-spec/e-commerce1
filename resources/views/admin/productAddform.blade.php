@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Add Product</title>
+  <title>{{__('product.Add Product')}}</title>
 
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
   <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -28,15 +28,9 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('admin.dashboard') }}">
-            <i class="material-symbols-rounded opacity-5"></i>
-            <span class="nav-link-text ms-1">Dashboard</span>
-          </a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link active bg-gradient-dark text-white" href="{{ route('admin.product') }}">
             <i class="material-symbols-rounded opacity-5"></i>
-            <span class="nav-link-text ms-1">Products</span>
+            <span class="nav-link-text ms-1">{{__('product.Products')}}</span>
           </a>
         </li>
 
@@ -45,7 +39,7 @@
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Order History</span>
+            <span class="nav-link-text ms-1">{{__('product.Order history')}}</span>
           </a>
         </li>
       </ul>
@@ -57,8 +51,8 @@
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Admin</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Add Products</li>
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">{{__('product.Admin Panel')}}</a></li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{{__('product.Add Product')}}</li>
           </ol>
         </nav>
 
@@ -68,7 +62,7 @@
               <form action="{{ route('admin.logout') }}" method="POST" class="m-0">
                 @csrf
                 <button type="submit"   class="btn btn-link nav-link text-body font-weight-bold px-0 mb-0">
-                  <i class="fa fa-user me-sm-1"></i> <span class="d-sm-inline d-none">Admin Logout</span>
+                  <i class="fa fa-user me-sm-1"></i> <span class="d-sm-inline d-none">{{__('home.logout')}}</span>
                
                 </button>
               </form>
@@ -100,7 +94,7 @@
             <div class="card my-4">
               <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                 <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
-                  <h6 class="text-white text-capitalize ps-3">Add New Product</h6>
+                  <h6 class="text-white text-capitalize ps-3">{{__('product.Add Product')}}</h6>
                 </div>
               </div>
 
@@ -109,9 +103,9 @@
                 <div class="row">
 
 <div class="mb-4">
-                <label for="description" class="sr-only">description</label>
+                <label for="description" class="sr-only">{{__('product.description') }}</label>
                 <input type="text" name="des_en" id="des_en"
-                       placeholder="description"
+                       placeholder="{{__('product.description')}}"
                        class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('description') border-red-500 @enderror"
                        >
               
@@ -119,9 +113,9 @@
 
 
 <div class="mb-4">
-                <label for="name in en" >name</label>
+                <label for="name in en" >{{__('product.name')}}</label>
                 <input type="text" name="name_en" id="name_en"
-                       placeholder="description"
+                       placeholder="{{__('product.name')}}"
                        class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('name_en') border-red-500 @enderror"
                        >
               
@@ -131,17 +125,17 @@
 
             
 <div class="mb-4">
-                <label for="description ar" class="sr-only">description</label>
+                <label for="description ar" class="sr-only">{{__('product.description')}}</label>
                 <input type="text" name="des_ar" id="des_ar"
-                       placeholder="description"
+                       placeholder="{{__('product.description')}}"
                        class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('description') border-red-500 @enderror"
                        >
               
             </div>
 <div class="mb-4">
-                <label for="name in ar" >name</label>
+                <label for="name in ar" >{{__('product.name')}}</label>
                 <input type="text" name="name_ar" id="name_ar"
-                       placeholder="description"
+                       placeholder="{{__('product.name')}}"
                        class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('name_ar') border-red-500 @enderror"
                        >
               
@@ -150,16 +144,16 @@
 
                   <div class="col-md-6">
                     <div class="input-group input-group-outline my-3">
-                      <label class="form-label">Price</label>
+                      <label class="form-label">{{__('product.Price')}}</label>
                       <input type="number" name="price" class="form-control" step="0.01"  required>
                     </div>
                   </div>
-                  Is_trend:
+                  {{__('product.Is_trend:')}}
                   <div class="col-md-3">
                     <div class="input-group input-group-outline my-3">
                       <select name="Is_trend" class="form-control" required>
-                        <option value="0">No</option>
-                        <option value="1">Yes</option>
+                        <option value="0">{{__('product.No')}}</option>
+                        <option value="1">{{__('product.Yes')}}</option>
                       </select>
                     </div>
                   </div>
@@ -171,7 +165,7 @@
 
                   <div class="col-md-3">
                     <div class="input-group input-group-outline my-3">
-                      <label class="form-label">categorynames</label>
+                      <label class="form-label">{{__('product.Category name')}}</label>
                       <select name="category_name" class="form-control" required>
                         @foreach($categories as $category)
                         <option value="{{ $category->name }}">{{ $category->name }}</option>
@@ -183,7 +177,7 @@
 
                   <div class="col-md-3">
                     <div class="input-group input-group-outline my-3">
-                      <label class="">photo</label>
+                      <label class="">{{__('product.photo')}}</label>
                       <input type='file' name='image' id='image' accept="image/" required>
                     </div>
                   </div>
@@ -198,7 +192,7 @@
                 <div class="row mt-4">
                   <div class="col-12">
                     <button type="submit" class="btn bg-gradient-warning w-100 btn-lg text-white font-weight-bold">
-                      ADD PRODUCT NOW
+                     {{__('product.Add Product')}}
                     </button>
                   </div>
                 </div>

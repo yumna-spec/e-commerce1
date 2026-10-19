@@ -36,20 +36,11 @@
      <ul class="navbar-nav">
   
   <li class="nav-item">
-    <a class="nav-link text-dark" href="{{ route('admin.dashboard') }}">
-      <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-        <i class="material-icons opacity-10"></i>
-      </div>
-      <span class="nav-link-text ms-1">Dashboard</span>
-    </a>
-  </li>
-
-  <li class="nav-item">
     <a class="nav-link text-dark" href="{{ route('category.index') }}">
       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
         <i class="material-icons opacity-10"></i>
       </div>
-      <span class="nav-link-text ms-1">Category</span>
+      <span class="nav-link-text ms-1">{{__('product.All Categories')}}</span>
     </a>
   </li>
 
@@ -57,7 +48,7 @@
 <li class="nav-item">
           <a class="nav-link active bg-gradient-dark text-white" href="{{ route('admin.product') }}">
             <i class="material-symbols-rounded opacity-5"></i>
-            <span class="nav-link-text ms-1">Products</span>
+            <span class="nav-link-text ms-1">{{__('product.Products')}}</span>
           </a>
         </li>
 
@@ -66,7 +57,7 @@
       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
         <i class="material-icons opacity-10"></i>
       </div>
-      <span class="nav-link-text ms-1">Order History</span>
+      <span class="nav-link-text ms-1">{{__('product.Order history')}}</span>
     </a>
   </li>
 
@@ -123,7 +114,7 @@
 
         <select name="category_name" id="category_name" class="form-select" >
 
-            <option value="">All Categories</option>
+            <option value="">{{__('product.All Categories')}}</option>
           
             @foreach($categories as $category)
           
@@ -150,7 +141,7 @@
 
 
 
-    <button type="submit" class="btn btn-dark btn-sm m-1">Search</button>
+    <button type="submit" class="btn btn-dark btn-sm m-1">{{__('product.Search')}}</button>
 </form>
 
 
@@ -185,25 +176,25 @@
             
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center">
-                <h6 class="text-white text-capitalize ps-3">Products List</h6>
+                <h6 class="text-white text-capitalize ps-3">{{__('product.Products List')}}</h6>
                 
                 <a href="{{ route('admin.product.add') }}" class="btn btn-sm btn-white me-3 text-dark mb-0 d-flex align-items-center">
-                  <i class="material-symbols-rounded text-sm me-1">add</i> Add Product
+                  <i class="material-symbols-rounded text-sm me-1">add</i>{{__('product.Add Product')}}
                 </a>
 
                 <!-- <a href="{{ route('admin.product.add') }}" class="btn btn-sm btn-white me-3 text-dark mb-0 d-flex align-items-center">
                   <i class="material-symbols-rounded text-sm me-1">add</i> Add Product
                 </a> -->
              <a href="{{ route('admin.product.trend') }}" class="btn btn-sm btn-white me-3 text-dark mb-0 d-flex align-items-center">
-                   Product trend
-                </a>
+{{__('product.Product Trend')}}
+            </a>
  <a href="{{ route('product.latest') }}" class="btn btn-sm btn-white me-3 text-dark mb-0 d-flex align-items-center">
-                   latest Products
-                </a>
+{{__('product.Product latest')}}
+</a>
 
                 <a href="{{ route('product.topselling') }}" class="btn btn-sm btn-white me-3 text-dark mb-0 d-flex align-items-center">
-                   Top Selling Products
-                </a>
+{{__('product.Top Selling Products')}}
+              </a>
               </div>
             </div>
 
@@ -212,14 +203,14 @@
                 <table class="table align-items-center justify-content-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">image</th>
-                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">{{__('product.Products')}}</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">{{__('product.images')}}</th>
+                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">{{__('product.Price')}}</th>
 
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">{{__('product.Description')}}</th>
                      
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">category name</th>
-                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Actions</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">{{__('product.Category name')}}</th>
+                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">{{__('product.Actions')}}</th>
 
                     </tr>
                   </thead>

@@ -33,6 +33,7 @@ $request->validate([
  'name'     => 'required|string|max:255',
  'email'    => 'required|string|email|max:255|unique:users',
  'password' => 'required|string|min:8|confirmed',
+ 'image'    => 'required|image|mimes:jpg,jpeg,png|max:2048',
 
  ]);
 
@@ -56,9 +57,11 @@ $imagefile=$image->storeAs('avatars/'.$user->id,$imagename,'public');
 $user->update([
     'image'=> $imagefile,
 ]);
+}
+
 Auth::login($user);
 
-}
+return redirect()->route('dashboarduser');
 }
 public function login (loginRequest $request){
     
@@ -67,7 +70,7 @@ public function login (loginRequest $request){
      $credentials = ['email' => $request->email, 'password' => $request->password];
 
         if (Auth::guard('web')->attempt($credentials)) {
-            return redirect()->intended(route('dashboarduser',['locale' => app()->getLocale()]));
+            return redirect()->route('product.list');
         }
         
 
@@ -132,7 +135,7 @@ return view('product.cart',compact('products'));
 
 
 
-public function Forgetpass(Request $request){
+public function Forgetpass(Request $request){    //1
     $user=Auth::user();
     $request->validate([
         'email'=>'required|string|exists:users,email'
@@ -158,12 +161,12 @@ $token=Str::random(16);
 
 }
 
-public function ShowReset(string $token)
+public function ShowReset(string $token)         //2
 {
 return view('password.password-reset',compact('token'));
 }
 
-public function ResetPassword(Request $request)
+public function ResetPassword(Request $request)  //3
 {
     $request->validate([
         'token'=>'required|string',
@@ -196,54 +199,47 @@ public function ResetPassword(Request $request)
 
 
 public function checkout(Request $request)
-    {
-        $user = Auth::user();
-        $products = $user->products;
+{
+    $user = Auth::user();
+    $products = $user->products;
 
+    if ($products->isEmpty()) {
+        return redirect()->route('cart.view')->with('error', __('product.empty_cart_order'));
+    }
 
-        $order = Order::query()->create([    //important //to make create direct from another model //Cause i use Facades
+    $validated = $request->validate([
+        'quantities' => ['sometimes', 'array'],
+        'quantities.*' => ['required', 'integer', 'min:1', 'max:99'],
+    ]);
+
+    $order = DB::transaction(function () use ($user, $products, $validated) {
+        $order = Order::create([
             'user_id' => $user->getAuthIdentifier(),
         ]);
+
         foreach ($products as $product) {
+            $quantity = (int) ($validated['quantities'][$product->id] ?? $product->pivot->quantity);
 
-            $quantities = $request->input("quantities.{$product->id}", 1);
-
-            //$quantity=$product->pivot->quantity; //(I added this on the Blade  so it will take the value from pivot as first value )
-
-
-            $user->products()->updateExistingPivot($product->id, [
-                'quantity' => $quantities
-            ]);
-
-          $orderitems=  Orderitems::create([
-                'order_id'   => $order->id,
+            OrderItems::create([
+                'order_id' => $order->id,
                 'product_id' => $product->id,
-                'quantity'   => $quantities,
-                'price'      => $product->price,
+                'quantity' => $quantity,
+                'price' => $product->price,
             ]);
-
-
-
-
         }
 
         Status::create([
-            'order_id'=>$order->id,
-            'name'=>'pending',
-            
+            'order_id' => $order->id,
+            'name' => 'pending',
         ]);
 
+        $user->products()->detach($products->modelKeys());
 
+        return $order;
+    });
 
-
-        $user->products()->detach();
-       // Mail::to($user->email)->send(new Ordermail($products));
-
-        return redirect()->back();
-
-
-
-    }
+    return redirect()->route('order.user')->with('success', __('product.order_placed', ['id' => $order->id]));
+}
 
     public function deletefromcart(Request $request){
         
@@ -299,15 +295,16 @@ public function cancelstatus(Request $request){
 }
 
  public function orderhistory (){
-$user = Auth::user();
+    $orders = Auth::user()
+        ->orders()
+        ->with(['orderitemsProduct.product', 'latestStatus'])
+        ->latest()
+        ->get();
 
-$orders = $user->orders;
+    return view('product.orderhistory', compact('orders'));
 
+ }
 
-
-return view('product.orderhistory', compact('orders'));
-
-    }
 
 
 
@@ -328,8 +325,3 @@ return view('product.orderhistory', compact('orders'));
 
 
     
-
-
-
-
-

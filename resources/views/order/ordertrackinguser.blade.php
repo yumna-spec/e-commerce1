@@ -75,7 +75,7 @@
 <input type="hidden" name="order_id" id="order_id" value="{{$order->id}}">
 <input type="hidden" name="name" id="name" value="cancel" disabled>
 <button  @disabled( $laststatus->name !="pending") type="submit" >
-        Cancel
+        {{__('product.cancel')}}
     </button>
     </form>
               </div>

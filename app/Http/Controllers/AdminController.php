@@ -37,7 +37,7 @@ public function login (loginadminRequest $request){
     Auth::guard('web')->logout();
 
         if (Auth::guard('admin')->attempt($credentials)) {
-        return redirect()->intended(route('admin.dashboard'));
+        return redirect()->route('admin.product');
 
         }
 return redirect()->back()->withErrors([

@@ -35,21 +35,12 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
      <ul class="navbar-nav">
   
-  <li class="nav-item">
-    <a class="nav-link text-dark" href="{{ route('admin.dashboard') }}">
-      <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-        <i class="material-icons opacity-10"></i>
-      </div>
-      <span class="nav-link-text ms-1">Dashboard</span>
-    </a>
-  </li>
-
   
 
 <li class="nav-item">
           <a class="nav-link active bg-gradient-dark text-white" href="{{ route('admin.product') }}">
             <i class="material-symbols-rounded opacity-5"></i>
-            <span class="nav-link-text ms-1">Products</span>
+            <span class="nav-link-text ms-1">{{__('product.Products')}}</span>
           </a>
         </li>
 
@@ -58,7 +49,7 @@
       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
         <i class="material-icons opacity-10"></i>
       </div>
-      <span class="nav-link-text ms-1">Order History</span>
+      <span class="nav-link-text ms-1">{{__('product.Order history')}}</span>
     </a>
   </li>
 
@@ -74,7 +65,7 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Admin</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Products</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{{__('product.Order history')}}</li>
           </ol>
         </nav>
       </div>
@@ -116,7 +107,7 @@
         <input type="range" class="form-range" id="price" name="price" min="0" max="100" 
                value="{{ request('price', 100) }}"
                 > 
-    <button type="submit" class="btn btn-dark btn-sm m-1">Search</button>
+    <button type="submit" class="btn btn-dark btn-sm m-1">{{__('product.Search')}}</button>
 </form>
         </div>
 
@@ -146,23 +137,23 @@
             
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center">
-                <h6 class="text-white text-capitalize ps-3">Products List</h6>
+                <h6 class="text-white text-capitalize ps-3">{{__('product.Products')}}</h6>
                 
                 <a href="{{ route('admin.product.add') }}" class="btn btn-sm btn-white me-3 text-dark mb-0 d-flex align-items-center">
-                  <i class="material-symbols-rounded text-sm me-1">add</i> Add Product
+                  <i class="material-symbols-rounded text-sm me-1">add</i> {{__('product.Add Product')}}
                 </a>
 
  <a href="{{ route('product.latest') }}" class="btn btn-sm btn-white me-3 text-dark mb-0 d-flex align-items-center">
-                   latest Products
+                  {{__('product.Product latest')}}
                 </a>
 
                 <a href="{{ route('product.topselling') }}" class="btn btn-sm btn-white me-3 text-dark mb-0 d-flex align-items-center">
-                   Top Selling Products
+                   {{__('product.Top Selling Products')}}
                 </a>
 
 
                  <a href="{{ route('product.lessselling') }}" class="btn btn-sm btn-white me-3 text-dark mb-0 d-flex align-items-center">
-                   Less Selling
+{{__('product.Less Selling')}}
                 </a>
               </div>
             </div>

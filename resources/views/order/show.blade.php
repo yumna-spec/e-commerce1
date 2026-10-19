@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
   <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
   <title>
-    Order History
+    {{__('product.Order history')}}
   </title>
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
   <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -18,8 +18,7 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
-  
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
+   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand px-4 py-3 m-0" href="#">
@@ -29,33 +28,31 @@
     </div>
     <hr class="horizontal dark mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('admin.dashboard') }}">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Dashboard</span>
+     <ul class="navbar-nav">
+  
+  
+
+<li class="nav-item">
+          <a class="nav-link active bg-gradient-dark text-white" href="{{ route('admin.product') }}">
+            <i class="material-symbols-rounded opacity-5"></i>
+            <span class="nav-link-text ms-1">{{__('product.Products')}}</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-dark" href="{{ route('admin.product') }}">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Products</span>
-          </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active bg-gradient-dark text-white" href="#">
-              <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="material-symbols-rounded opacity-10">receipt_long</i>
-              </div>
-              <span class="nav-link-text ms-1">Order History</span>
-            </a>
-          </li>
-      </ul>
+
+<li class="nav-item">
+    <a class="nav-link text-dark" href="{{ route('order.history') }}">
+      <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+        <i class="material-icons opacity-10"></i>
+      </div>
+      <span class="nav-link-text ms-1">{{__('product.Order history')}}</span>
+    </a>
+  </li>
+
+
+
+</ul>
     </div>
+  
   </aside>
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -77,7 +74,7 @@
             
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
               <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3 d-flex justify-content-between align-items-center">
-                <h6 class="text-white text-capitalize ps-3">Order History List</h6>
+                <h6 class="text-white text-capitalize ps-3">{{__('product.Order history')}}</h6>
               </div>
             </div>
 
@@ -118,18 +115,17 @@
 
 <label for="Status"></label>
 <select name="name" id="name">
-<option value="pending">Pending</option>
-<option value="In_progress">In_progress</option>
-<option value="cancel">cancel</option>
-<option value="cancel">out delivery</option>
-<option value="cancel">preparing</option>
-<option value="cancel">Delivered</option>
+<option value="pending">{{__('product.pending')}}</option>
+<option value="cancel">{{__('product.cancel')}}</option>
+<option value="cancel">{{__('product.out delivery')}}</option>
+<option value="cancel">{{__('product.preparing')}}</option>
+<option value="cancel">{{__('product.Delivered')}}</option>
 
 
 
 </select>
 <input type="text" name="notes" id="notes">
-<input type="submit" value="submit">
+<input type="submit" value="{{__('product.submit')}}">
 </form>                            
                         </td>
 
@@ -140,7 +136,7 @@
                         
                         <td class="align-middle text-center">
                             <a href="{{ route('order.items', ['id' => $order->id]) }}" class="btn btn-sm btn-outline-dark mb-0">
-                                View Details
+                               {{__('product.View Details')}}
                             </a>
                         </td>
                     </tr>

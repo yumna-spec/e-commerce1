@@ -1,0 +1,33 @@
+<?php
+
+return[
+    "login"=>"login",
+    "Email"=>"Email",
+    "Password"=>"Password",
+    "Remember me"=>"Remember me",
+    "Sign in"=>"Sign in",
+    "Admin Login"=>"Admin Login",
+    "sign_in_title"=>"Welcome back",
+    "brand_eyebrow"=>"Good food. Great mood.",
+    "brand_headline"=>"Your happy place is one bite away.",
+    "brand_message"=>"Freshly made burgers, golden fries, and a little extra joy with every order.",
+    "sign_in_kicker"=>"Happy to have you back",
+    "sign_in_subtitle"=>"Sign in to pick up where the good food begins.",
+    "back_home"=>"Back to home",
+    "show_password"=>"Show",
+    "hide_password"=>"Hide",
+    "forgot_password"=>"Forgot password?",
+    "no_account"=>"New to Happy Burger?",
+    "create_account"=>"Create an account",
+    "sign_up_title"=>"Join the good side",
+    "join_headline"=>"More happy meals, made just for you.",
+    "join_message"=>"Create an account to make your next burger run even easier.",
+    "join_kicker"=>"Come on in",
+    "sign_up_subtitle"=>"Create your account and get ready for your next favorite.",
+    "have_account"=>"Already have an account?",
+    "full_name"=>"Full name",
+    "confirm_password"=>"Confirm password",
+    "profile_photo"=>"Profile photo",
+    "photo_hint"=>"JPG or PNG, up to 2 MB",
+    "choose_photo"=>"Choose photo"
+];

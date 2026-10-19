@@ -44,21 +44,21 @@
         <li class="nav-item">
           <a class="nav-link text-dark" href="{{ route('dashboarduser') }}">
             <i class="material-symbols-rounded opacity-5">dashboard</i>
-            <span class="nav-link-text ms-1">Dashboard</span>
+            <span class="nav-link-text ms-1">{{__('product.Dashboard')}}</span>
           </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link text-dark" href="{{ route('product.list') }}">
             <i class="material-symbols-rounded opacity-5">storefront</i>
-            <span class="nav-link-text ms-1">Shop Products</span>
+            <span class="nav-link-text ms-1">{{__('product.Shop Products')}}</span>
           </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link active bg-gradient-dark text-white" href="{{ route('cart.view') }}">
             <i class="material-symbols-rounded opacity-5">shopping_cart</i>
-            <span class="nav-link-text ms-1">My Cart</span>
+            <span class="nav-link-text ms-1">{{__('product.My Cart')}}</span>
           </a>
         </li>
 
@@ -83,7 +83,7 @@
                 <form action="{{ route('logout') }}" method="POST" class="m-0">
                     @csrf
                     <button type="submit" class="btn btn-link nav-link text-body font-weight-bold px-0 mb-0">
-                        <i class="fa fa-user me-sm-1"></i> <span class="d-sm-inline d-none">Logout</span>
+                        <i class="fa fa-user me-sm-1"></i> <span class="d-sm-inline d-none">{{__('home.logout')}}</span>
                     </button>
                 </form>
             </li>
@@ -101,6 +101,12 @@
         }
       @endphp
 
+      @if(session('error'))
+        <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
+      @endif
+      @if($errors->any())
+        <div class="alert alert-danger" role="alert">{{ $errors->first() }}</div>
+      @endif
       <section class="h-100 gradient-custom">
         <div class="container py-3">
           <div class="row d-flex justify-content-center my-4">
@@ -108,9 +114,10 @@
             <div class="col-md-8">
               <div class="card mb-4">
                 <div class="card-header py-3">
-                  <h5 class="mb-0">Cart - {{ $products->count() }} items</h5>
+                  <h5 class="mb-0">  {{ $products->count() }} {{__('product.Items')}}</h5>
                 </div>
                 <div class="card-body">
+                 @if($products->isNotEmpty())
                  <form method="POST" action="{{ route('order.checkout') }}">
     @csrf
 
@@ -133,7 +140,7 @@
                     <i class="fas fa-plus"></i>
                 </button>
             </div>
-            <p class="text-start text-md-center"><strong>${{ $product->price }}</strong></p>
+            <p class="text-start text-md-center"><strong>${{ number_format((float) $product->price, 2) }}</strong></p>
         </div>
 
         <div class="col-lg-5 col-md-6">
@@ -141,7 +148,7 @@
             <p class="text-sm text-secondary">{{ Str::limit($product->description, 50) }}</p>
             
             <button type="submit" formaction="{{ route('cart.delete') }}" name="delete_id" value="{{ $product->id }}" class="btn btn-danger btn-sm">
-                <i class="fa fa-trash"></i> delete
+                <i class="fa fa-trash"></i> {{ __('product.remove') }}
             </button>
         </div>
     </div>
@@ -152,51 +159,41 @@
     @endforeach
 
     <button type="submit" style="background-color:#ff6600;color:white" class="btn btn-primary btn-lg w-100">
-        الذهاب إلى الدفع
+      {{ __('product.place_order') }}
     </button>
+    <p class="text-sm text-secondary mt-2 mb-0">{{ __('product.no_online_payment_note') }}</p>
 </form>
-                  
-                  @if($products->isEmpty())
+                 @else
                     <div class="text-center">
-                        <p>Your cart is empty.</p>
-                        <a href="{{ route('product.list') }}" class="btn btn-outline-primary">Go Shopping</a>
+                        <p>{{__('product.Your cart is empty.')}}</p>
+                        <a href="{{ route('product.list') }}" class="btn btn-outline-primary">{{__('product.Go Shopping')}}</a>
                     </div>
-                  @endif
+                 @endif
 
                 </div>
               </div>
               
-              <div class="card mb-4 mb-lg-0">
-                <div class="card-body">
-                  <p><strong>We accept</strong></p>
-                  <img class="me-2" width="45px" src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg" alt="Visa" />
-                  <img class="me-2" width="45px" src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg" alt="American Express" />
-                  <img class="me-2" width="45px" src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg" alt="Mastercard" />
-                </div>
-              </div>
             </div>
             
             <div class="col-md-4">
               <div class="card mb-4">
                 <div class="card-header py-3">
-                  <h5 class="mb-0">Summary</h5>
+                  <h5 class="mb-0">{{__('product.Summary')}}</h5>
                 </div>
                 <div class="card-body">
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                      Products
+                      {{__('product.Products')}}
                       <span>${{ $total }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                      Shipping
+                      {{__('product.Shipping')}}
                       <span>Free</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                       <div>
-                        <strong>Total amount</strong>
-                        <strong>
-                          <p class="mb-0">(including VAT)</p>
-                        </strong>
+                        <strong>{{__('product.Total amount')}}</strong>
+
                       </div>
                       <span><strong>${{ $total }}</strong></span>
                     </li>

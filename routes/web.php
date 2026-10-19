@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 
+use App\Models\Session;
 
 use App\Models\Product;
 use App\Models\Category;
@@ -45,16 +46,6 @@ Route::get('/lang/{lang}',function($lang):RedirectResponse{
 
 
 
-
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})
-    ->name('admin.dashboard')
-    ->middleware('auth:admin');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});
 
 Route::get('/userdashboard', function () {
     return view('dashboarduser');
@@ -182,4 +173,9 @@ Route::get('/statusmyorder/{id}',[UserController::class,'updatestate'])->name('o
 Route::post('/cancelmyorder',[UserController::class,'cancelstatus'])->name('cancelmyorder');
 
 
+Route::get('/session',function(){
+return view('product.session');
+})->name('session');
 
+
+Route::get('/salebyday',[ProductController::class,'salebyday']);

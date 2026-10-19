@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         AdminSeeder::class,
         CategorySeeder::class,
         OrderStatusSeeder::class,
+        BurgerMenuSeeder::class,
     ]);
         User::factory()->create([
             'name' => 'Test User',

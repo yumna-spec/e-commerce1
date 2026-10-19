@@ -7,7 +7,7 @@
   
   <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
   <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
-  <title>Browse Products</title>
+  <title>{{__('product.Products')}}</title>
   
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
   <link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -36,7 +36,8 @@
 
         <x-aside href="{{ route('dashboarduser') }}" :active="request()->is('userdashboard')"     id="dashboard" >{{__('product.Dashboard')}}</x-aside>
         <x-aside href="{{ route('product.list')  }}"  :active="request()->is('product')">{{__('product.Shop Products')}}</x-aside>
-       <x-aside href="{{ route('order.user')  }}"  :active="request()->is('userorder')">{{__('product.Shop Products')}}</x-aside>
+       <x-aside href="{{ route('order.user')  }}"  :active="request()->is('userorder')">{{__('product.All my orders')}}</x-aside>
+       <x-aside href="{{ route('session')  }}"  :active="request()->is('session')">{{__('product.session')}}</x-aside>
 
       </ul>
     </div>

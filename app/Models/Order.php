@@ -26,4 +26,9 @@ protected $fillable = ['user_id'];
     public function statuses(){
         return $this->hasMany(Status::class);
     }
+
+    public function latestStatus()
+    {
+        return $this->hasOne(Status::class)->latestOfMany();
+    }
 }
